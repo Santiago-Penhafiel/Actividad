@@ -12,7 +12,8 @@ int main (){
     }
     
 printf("------------Inventario de objetos------------ \n(Este inventario tiene hasta un máximo de 100 productos para ingresar)\n");
-printf("\t\tMENU \n1 Para ingresar nuevos objetos \n2 Para editar los objetos \n3 Para eliminar los objetos \n4 Para ver la lista de objetos\n");
+inicio:
+printf("\t\tMENU \n1 Para ingresar nuevos objetos \n2 Para editar los objetos \n3 Para eliminar los objetos \n4 Para ver la lista de objetos \n5 Para salir\n");
     scanf("%d",&a);
     switch (a)
     {
@@ -46,14 +47,21 @@ printf("\t\tMENU \n1 Para ingresar nuevos objetos \n2 Para editar los objetos \n
             }
             cont++;
         }
-        
+        goto inicio;
         break;
     
     case 2:
         printf("Que numero de producto desea modificar : ");
-        scanf("%i",num);
+        scanf("%i",&num);
         num--;
-        
+        printf("Nombre\tCantidad\tPrecio\n%s\t%f\t%f\n",nombres[num],datos[num][0],datos[num][1]);
+        printf("Nuevo nombre : ");
+        scanf("%s",&nombres[num]);
+        printf("\nNueva cantidad : ");
+        scanf("%f",&datos[num][0]);
+        printf("\nNuevo precio");
+        scanf("%f",&datos[num][1]);
+        goto inicio;
 
         break;
     
