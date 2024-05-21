@@ -50,21 +50,25 @@ printf("\t\tMENU \n1 Para ingresar nuevos objetos \n2 Para editar los objetos \n
         break;
     
     case 2:
+        editar:
         printf("Que numero de producto desea modificar : ");
         scanf("%i",&num);
         num--;
         if (comprobar(num,nombres)==0)
         {
-            /* code */
+            printf("El producto que desea modificar no existe, por favor vuelva a intentar con un numero diferente\n");
+            goto editar;
+        } else {
+            printf("Nombre\tCantidad\tPrecio\n%s\t%f\t%f\n",nombres[num],datos[num][0],datos[num][1]);
+            printf("Nuevo nombre : ");
+            scanf("%s",&nombres[num]);
+            printf("\nNueva cantidad : ");
+            scanf("%f",&datos[num][0]);
+            printf("\nNuevo precio : ");
+            scanf("%f",&datos[num][1]);
         }
         
-        printf("Nombre\tCantidad\tPrecio\n%s\t%f\t%f\n",nombres[num],datos[num][0],datos[num][1]);
-        printf("Nuevo nombre : ");
-        scanf("%s",&nombres[num]);
-        printf("\nNueva cantidad : ");
-        scanf("%f",&datos[num][0]);
-        printf("\nNuevo precio");
-        scanf("%f",&datos[num][1]);
+        
         goto inicio;
 
         break;
