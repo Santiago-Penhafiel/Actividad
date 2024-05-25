@@ -1,6 +1,6 @@
 void inf ();
 int menu ();
-int numObj ();
+int numObjAñadir ();
 char* añadirNombre(int index, char nombres[][20]);
 float añadirDatos (int a,int index, char nombres[][20]);
 int indexEditar (char nombres[][20]);
@@ -10,5 +10,5 @@ int comprobarReplicas (char nombres[][20],int index);
 float validarNum (int insp);
 int indexEliminar (char nombres[][20]);
 char* vaciarStr (int index,char str[][20]);
-
-int comprobarVacio (char arreglo[][20]);
+void imprimirTabla(char nombres [][20], char vacio[], float datos [][2]);
+int comprobarVacio (char arreglo[][20],char vacio[]);

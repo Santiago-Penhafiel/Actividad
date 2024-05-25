@@ -15,7 +15,7 @@ int menu (){
     return opc;
 }
 
-int numObj (){
+int numObjAñadir (){
     int num=0,insp;
     printf("\t\t\t\tA%cADIR\n",165);
     printf("\nCuantos objetos desea ingresar : ");
@@ -48,7 +48,6 @@ char* añadirNombre(int index, char nombres[][20]){
     scanf("%s",&nombres[index]);
     return nombres[index];
 }
-
 
 float añadirDatos (int a,int index, char nombres[][20]){
     int insp;
@@ -91,11 +90,9 @@ int comprobarReplicas (char nombres[][20],int index){
     } else {c=2;}
     return c;
 }
-
-
     
 int indexEditar (char nombres[][20]){
-    printf("INICIO\n");
+    printf("\t\t\t\tEDITAR\n\n");
     char buscar[20] , x[10];
     inicio:
     printf("Ingrese el nombre del producto a editar : ");
@@ -121,11 +118,28 @@ int indexEditar (char nombres[][20]){
 }
 
 char* editarNombre (int index, char nombres[][20],float datos [][2]){
+    char nuevoNombre[20];
     printf("\nNombre\tCantidad\tPrecio\n%s\t%f\t%f\n",nombres[index],datos[index][0],datos[index][1]);
-    printf("Nuevo nombre : ");
+    reinicio:
+    printf("\nNuevo nombre : ");
     fflush(stdin);
-    scanf("%s",&nombres[index]);
-    return nombres [index];
+    scanf("%s",&nuevoNombre);
+    if (strcmp(nuevoNombre,nombres[index])==0)
+    {
+        printf("\nEl nombre ingresado no puede ser el mismo que el anterior");
+        goto reinicio;
+    } else {
+        for (int i = 0; i < 100; i++)
+        {
+            if (strcmp(nombres[i],nuevoNombre)==0)
+            {
+                printf("\nEl producto no puede tener el mismo nombre que otro producto");
+                goto reinicio;
+            }
+        }
+    }
+    strcpy(nombres[index],nuevoNombre);
+    return nombres[index];
 }
 
 float editarCantidad (int index, float datos[][2]){
@@ -158,6 +172,14 @@ int indexEliminar (char nombres[][20]){
             if(strcmp(resp,"si")==0){
                 index=i;
                 break;
+            } else {
+                printf("\nDesea ingresar otro producto para eliminar (si/no)");
+                scanf("%s",&resp);
+                if(strcmp(resp,"si")==0){
+                    goto reinicio;
+                } else {
+                    goto end;
+                }
             }
         }
     }
@@ -168,17 +190,39 @@ int indexEliminar (char nombres[][20]){
             goto reinicio;
         }
     }
-    
+    end:
     return index;
 }
 
+void imprimirTabla(char nombres [][20], char vacio[], float datos [][2]){
+    printf("\t\t\t\tINVENTARIO");
+        if (strcmp(nombres[0],vacio)==0)
+        {
+            printf("\n\nEl inventario est%c vac%co",160,161);
+        } else {
+            printf("\n\nNOMBRE\t\tCANTIDAD\t\tPRECIO");
+            for (int i = 0; i < 100; i++)
+            {
+                if (strcmp(nombres[i],vacio)==0)
+                {
+                    break;
+                } else {
+                    printf("\n\n%s",nombres[i]);
+                }
+                for (int j = 0; j < 2; j++)
+                {
+                    printf("\t\t%f",datos[i][j]);
+                }
+            }
+        }
+}
 
-int comprobarVacio (char arreglo[][20]){
+int comprobarVacio (char arreglo[][20],char vacio[]){
     int cont,index=-1;
     for (int j = 0; j < 100; j++)
     {
         cont=0;
-        for (int i = 0; i < 20; i++)
+        /*for (int i = 0; i < 20; i++)
         {
             if ((arreglo[j][i]) != '\0'){
                 printf("LLENO\n");
@@ -192,6 +236,13 @@ int comprobarVacio (char arreglo[][20]){
             index=j;
             //printf("CONTADOR = %i",cont);
             break;
+        }*/
+        if (strcmp(arreglo[j],vacio)!=0)
+        {
+            cont=1;
+        } else {
+            index=j;
+            break;
         }
     }
     //printf("INDEX = %i",index);
@@ -199,9 +250,6 @@ int comprobarVacio (char arreglo[][20]){
 }
 
 char* vaciarStr (int index,char str[][20]){
-    for (int i = 0; i < 20; i++)
-    {
-        str[index][i]='\0';
-    }
+    memset(str[index],0,sizeof(str[index]));
     return str[index];
 }

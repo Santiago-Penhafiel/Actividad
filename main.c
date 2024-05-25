@@ -16,24 +16,26 @@ int main (){
     switch (opc)
     {
     case 1: //añadir
-        num=numObj();
+        num=numObjAñadir();
         for (int i = 0; i < num; i++)//for itera cuantas veces se le pida
         {
-            index=comprobarVacio(nombres);//busca cadenas vacias
+            index=comprobarVacio(nombres,vacio);//busca cadenas vacias
             //printf("index : %i\n",index);
             repetir:
             strcpy(nombres[index],añadirNombre(index,nombres));
+            //printf("NOMBRES INDEX : %s\n",nombres[index]);
             comp=comprobarReplicas(nombres,index);//mira los duplicados
             if (comp==0)
             {
                 goto repetir;
             } else if (comp==1) {
-                memset(nombres[index],0,sizeof(nombres[index]));
-                goto añadir;
+                strcpy(nombres[index],vaciarStr(index,nombres));
+                continue;
+                //goto añadir;
             } 
             datos[index][0]=añadirDatos(0,index,nombres);
             datos[index][1]=añadirDatos(1,index,nombres);
-            añadir:
+            //añadir:
             //printf("%s\n",nombres[index]); // imprimir nombre ingresado
         }
         
@@ -59,40 +61,17 @@ int main (){
         goto menu;
 
         break;
+
+    case 4:
+        imprimirTabla(nombres,vacio,datos);   
+        goto menu;
+        
+        break;
     
     default:
         break;
     }
-
     getch();
 
     return 0;
-}
-
-
-
-int comprobar (int num,char arreglo[][20]){
-    int c=0;
-    for (int i = 0; i < 20; i++)
-    {
-        if ((arreglo[num][i]) != '\0'){
-            c++;
-            //printf("LLENO\n");
-        } else {
-        //printf("VACIO\n");
-        }
-    }
-    return c;
-}
-
-int comparar (int n, char producto[][20],char buscar[][20]){
-    int c=-1;
-    for (int i = 0; i < 100; i++)
-    {
-        if (strcmp(producto[i],buscar[i])==0){
-            c=i;
-        }
-    }
-    
-
 }
