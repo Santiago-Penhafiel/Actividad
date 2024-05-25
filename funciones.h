@@ -1,5 +1,7 @@
 void inf ();
 int menu ();
+void noValido ();
+char* salir (char resp[10]);
 int numObjAñadir ();
 char* añadirNombre(int index, char nombres[][20]);
 float añadirDatos (int a,int index, char nombres[][20]);
@@ -10,5 +12,7 @@ int comprobarReplicas (char nombres[][20],int index);
 float validarNum (int insp);
 int indexEliminar (char nombres[][20]);
 char* vaciarStr (int index,char str[][20]);
+char* reordenarNombre (int i,char nombres[][20]);
 void imprimirTabla(char nombres [][20], char vacio[], float datos [][2]);
+float reordenarDatos(int inicio,float datos[][2],int j);
 int comprobarVacio (char arreglo[][20],char vacio[]);

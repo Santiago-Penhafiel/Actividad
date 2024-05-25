@@ -9,7 +9,7 @@ void inf (){
 
 int menu (){
     int opc,insp;
-    printf("\n\t\t\t\tMENU \n1 Para ingresar nuevos objetos \n2 Para editar los objetos \n3 Para eliminar los objetos \n4 Para ver la lista de objetos \n5 Para salir \nOpcion : ");
+    printf("\n\t\t\t\tMENU \n\n1 Para ingresar nuevos objetos \n2 Para editar los objetos \n3 Para eliminar los objetos \n4 Para ver la lista de objetos \n5 Para salir \nOpcion : ");
     insp = scanf("%d",&opc);
     (insp!=1)? opc=validarNum(insp):(0);
     return opc;
@@ -18,7 +18,7 @@ int menu (){
 int numObjAñadir (){
     int num=0,insp;
     printf("\t\t\t\tA%cADIR\n",165);
-    printf("\nCuantos objetos desea ingresar : ");
+    printf("\n%cCuantos objetos desea ingresar? : ",168);
         insp = scanf("%i",&num);
         (insp!=1)? num=validarNum(insp):(0);
         //printf("%i\n",num);
@@ -66,7 +66,7 @@ float añadirDatos (int a,int index, char nombres[][20]){
 }
 
 int comprobarReplicas (char nombres[][20],int index){
-    int c;
+    int c=2;
     char x[10];
     if (index!=0)
     {
@@ -74,17 +74,17 @@ int comprobarReplicas (char nombres[][20],int index){
         {
             if (strcmp(nombres[index],nombres[i])==0)
             {
-                printf("El producto que desa agregar ya existe \nDesea ingresar un nuevo nombre (si/no) : ");
+                printf("\nEl producto que desa agregar ya existe \n\n%cDesea ingresar un nuevo nombre? (si/no) : ",168);
                 fflush(stdin);
                 scanf("%s",&x);
                 if (strcmp(x,"si")==0)
                 {
                     c=0;
+                    break;
                 } else {
                     c=1;
+                    break;
                 }
-            } else {
-                c=2;
             }
         }
     } else {c=2;}
@@ -107,7 +107,7 @@ int indexEditar (char nombres[][20]){
     }
             if (c==-1)
             {
-                printf("El nombre que busca no se encuentra en la base de datos \nDesea ingresar otro nombre (si/no) : ");
+                printf("\nEl nombre que busca no se encuentra en la base de datos \n\n%cDesea ingresar otro nombre? (si/no) : ",168);
                 fflush(stdin);
                 scanf("%s",&x);
                 if (strcmp(x,"si")==0)
@@ -159,7 +159,7 @@ int indexEliminar (char nombres[][20]){
     int index=-1;
     printf("\t\t\t\tELIMINAR \n");
     reinicio:
-    printf ("Qu%c producto desea eliminar : ",130);
+    printf ("\n%cQu%c producto desea eliminar? : ",168,130);
     scanf("%s",&buscar);
     for (int i = 0; i < 100; i++)
     {
@@ -167,13 +167,13 @@ int indexEliminar (char nombres[][20]){
         //printf("DEBE SER 0  :  %i",index);
         //getch();
         if (strcmp(buscar,nombres[i])==0){
-            printf("Est%c seguro que desea eliminar el art%cculo \"%s\" (si/no) : ",160,161,nombres[i]);
+            printf("\n%cEst%c seguro que desea eliminar el art%cculo? \"%s\" (si/no) : ",168,160,161,nombres[i]);
             scanf("%s",&resp);
             if(strcmp(resp,"si")==0){
                 index=i;
                 break;
             } else {
-                printf("\nDesea ingresar otro producto para eliminar (si/no)");
+                printf("\n%cDesea ingresar otro producto para eliminar? (si/no) : ",168);
                 scanf("%s",&resp);
                 if(strcmp(resp,"si")==0){
                     goto reinicio;
@@ -184,7 +184,7 @@ int indexEliminar (char nombres[][20]){
         }
     }
     if (index==-1){
-        printf("\nEl producto no existe \nDesea ingresar otro producto para eliminar (si/no) : ");
+        printf("\nEl producto no existe \n\n%cDesea ingresar otro producto para eliminar? (si/no) : ",168);
         scanf("%s",&resp);
         if(strcmp(resp,"si")==0){
             goto reinicio;
@@ -192,6 +192,16 @@ int indexEliminar (char nombres[][20]){
     }
     end:
     return index;
+}
+
+char* reordenarNombre (int i,char nombres[][20]){
+    strcpy(nombres[i],nombres[i+1]);
+    return nombres[i];
+}
+
+float reordenarDatos(int i,float datos[][2],int j){
+    datos[i][j]=datos[i+1][j];
+    return datos[i][j];
 }
 
 void imprimirTabla(char nombres [][20], char vacio[], float datos [][2]){
@@ -215,6 +225,7 @@ void imprimirTabla(char nombres [][20], char vacio[], float datos [][2]){
                 }
             }
         }
+        printf("\n");
 }
 
 int comprobarVacio (char arreglo[][20],char vacio[]){
@@ -222,26 +233,13 @@ int comprobarVacio (char arreglo[][20],char vacio[]){
     for (int j = 0; j < 100; j++)
     {
         cont=0;
-        /*for (int i = 0; i < 20; i++)
-        {
-            if ((arreglo[j][i]) != '\0'){
-                printf("LLENO\n");
-                cont=1;
-            } else {
-                printf("VACIO\n");
-            }
-        }
-        //printf("Vuelta %i completa\n",j+1);
-        if(cont==0){
-            index=j;
-            //printf("CONTADOR = %i",cont);
-            break;
-        }*/
         if (strcmp(arreglo[j],vacio)!=0)
         {
             cont=1;
+            //printf("LLENO\n");
         } else {
             index=j;
+            //printf("VACIO\n");
             break;
         }
     }
@@ -252,4 +250,18 @@ int comprobarVacio (char arreglo[][20],char vacio[]){
 char* vaciarStr (int index,char str[][20]){
     memset(str[index],0,sizeof(str[index]));
     return str[index];
+}
+
+char* salir (char resp[10]){
+        char  x[10];
+        printf("%cEst%c seguro de salir? (si/no) : ",168,160);
+        fflush(stdin);
+        scanf("%s",&x);
+        printf("%s",x);
+        strcpy(resp,x);
+        return resp;
+}
+
+void noValido (){
+    printf("\nIngrese una respuesta valida\n");
 }
