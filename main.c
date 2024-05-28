@@ -5,7 +5,7 @@
 
 int main (){
     float datos[100][2]={};
-    int opc, num, index,indexFinal,comp=5;
+    int opc, num, index,indexFinal=-1,comp=5;
     char nombres[100][20]={}, buscar[20]={},vacio[20]={},resp[10];
 
     inf ();
@@ -15,7 +15,7 @@ int main (){
     switch (opc)
     {
     case 1: //añadir
-        num=numObjAñadir();
+        num=numObjAñadir(indexFinal);
         //printf("ITERACIONES : %i\n",num);
         for (int i = 0; i < num; i++)//for itera cuantas veces se le pida
         {
@@ -36,6 +36,7 @@ int main (){
             datos[index][0]=añadirDatos(0,index,nombres);
             datos[index][1]=añadirDatos(1,index,nombres);
             indexFinal=index;
+            printf("\nINDEX FINAL : %i\n",indexFinal);
             //añadir:
             //printf("%s\n",nombres[index]); // imprimir nombre ingresado
         }
@@ -58,7 +59,8 @@ int main (){
     
     case 3:// eliminar
         int inicio;
-        index = indexEliminar (nombres);
+        index = indexEliminar (nombres);{
+        }
         if (index!=-1)
         {
             strcpy(nombres[index],vaciarStr(index,nombres));
@@ -66,10 +68,10 @@ int main (){
         }
     
         inicio = comprobarVacio(nombres,vacio);
-        printf("INICIO : %i\nFINAL : %i\n",inicio,indexFinal);
+        //printf("INICIO : %i\nFINAL : %i\n",inicio,indexFinal);
         for (int i = inicio; i < indexFinal; i++)
         {
-            printf("VUELTA %i\n",i+1);
+            //printf("VUELTA %i\n",i+1);
             strcpy(nombres[i],reordenarNombre(i,nombres));
             printf("NOMBRE%i : %s\n",i,nombres[i]);
             for (int j = 0; j < 2; j++) {datos[i][j] = reordenarDatos(i,datos,j);}            
@@ -79,6 +81,8 @@ int main (){
         }
         for (int i = 0; i < 2; i++) {datos[indexFinal][i]=0;}
         
+        indexFinal = index - 1;
+
         goto menu;
 
         break;

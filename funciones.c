@@ -15,14 +15,14 @@ int menu (){
     return opc;
 }
 
-int numObjAñadir (){
+int numObjAñadir (int indexFinal){
     int num=0,insp;
     printf("\t\t\t\tA%cADIR\n",165);
     printf("\n%cCuantos objetos desea ingresar? : ",168);
         insp = scanf("%i",&num);
         (insp!=1)? num=validarNum(insp):(0);
         //printf("%i\n",num);
-        while (num<=0 || num>=100)
+        while (num<=0 || num>(99-indexFinal))
         {
             printf("\nIngrese un numero v%clido : ",160);
             insp = scanf("%i",&num);
@@ -75,15 +75,19 @@ int comprobarReplicas (char nombres[][20],int index){
             if (strcmp(nombres[index],nombres[i])==0)
             {
                 printf("\nEl producto que desa agregar ya existe \n\n%cDesea ingresar un nuevo nombre? (si/no) : ",168);
+                reinicio:
                 fflush(stdin);
                 scanf("%s",&x);
                 if (strcmp(x,"si")==0)
                 {
                     c=0;
                     break;
-                } else {
+                } else if (strcmp(x,"no")==0) {
                     c=1;
                     break;
+                } else {
+                    printf("\nIngrese una respuesta v%clida : ",160);
+                    goto reinicio;
                 }
             }
         }
@@ -108,11 +112,16 @@ int indexEditar (char nombres[][20]){
             if (c==-1)
             {
                 printf("\nEl nombre que busca no se encuentra en la base de datos \n\n%cDesea ingresar otro nombre? (si/no) : ",168);
+                reinicio:
                 fflush(stdin);
                 scanf("%s",&x);
                 if (strcmp(x,"si")==0)
                 {
-                    goto inicio;}
+                    goto inicio;
+                } else if (strcmp(x,"no")!=0) {
+                    printf("\nIngrese una respuesta v%clida : ",160);
+                    goto reinicio;
+                }
             }
     return c;
 }
@@ -168,26 +177,41 @@ int indexEliminar (char nombres[][20]){
         //getch();
         if (strcmp(buscar,nombres[i])==0){
             printf("\n%cEst%c seguro que desea eliminar el art%cculo? \"%s\" (si/no) : ",168,160,161,nombres[i]);
+            preguntar:
+            fflush(stdin);
             scanf("%s",&resp);
             if(strcmp(resp,"si")==0){
                 index=i;
                 break;
-            } else {
+            } else if (strcmp(resp,"no")==0){
                 printf("\n%cDesea ingresar otro producto para eliminar? (si/no) : ",168);
+                preguntar2:
+                fflush(stdin);
                 scanf("%s",&resp);
                 if(strcmp(resp,"si")==0){
                     goto reinicio;
-                } else {
+                } else if (strcmp(resp,"no")==0) {
                     goto end;
+                } else {
+                    printf("\nIngrese una respuesta v%clida : ",160);
+                    goto preguntar2;
                 }
+            } else {
+                    printf("\nIngrese una respuesta v%clida : ",160);
+                    goto preguntar;
             }
         }
     }
     if (index==-1){
         printf("\nEl producto no existe \n\n%cDesea ingresar otro producto para eliminar? (si/no) : ",168);
+        pregunta3:
+        fflush(stdin);
         scanf("%s",&resp);
         if(strcmp(resp,"si")==0){
             goto reinicio;
+        } else if (strcmp(resp,"no")!=0) {
+            printf("\nIngrese una respuesta v%clida : ",160);
+            goto pregunta3;
         }
     }
     end:
@@ -257,7 +281,13 @@ char* salir (char resp[10]){
         printf("%cEst%c seguro de salir? (si/no) : ",168,160);
         fflush(stdin);
         scanf("%s",&x);
-        printf("%s",x);
+        while (strcmp(x,"si")!=0 && strcmp(x,"no")!=0)
+        {
+            printf("\nIngrese una respuesta v%clida",160);
+            fflush(stdin);
+            scanf("%s",&x);
+        }
+        //printf("%s",x);
         strcpy(resp,x);
         return resp;
 }

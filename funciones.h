@@ -2,7 +2,7 @@ void inf ();
 int menu ();
 void noValido ();
 char* salir (char resp[10]);
-int numObjAñadir ();
+int numObjAñadir (int indexFinal);
 char* añadirNombre(int index, char nombres[][20]);
 float añadirDatos (int a,int index, char nombres[][20]);
 int indexEditar (char nombres[][20]);
