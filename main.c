@@ -6,7 +6,7 @@
 int main (){
     float datos[3][2][10][2]={};
     int opc, num, index,indexFinal=-1,comp=5,tipo,material;
-    char nombres[3][2][10][20]={},buscar[20]={},vacio[20]={},resp[20]={};
+    char nombres[3][2][11][20]={},buscar[20]={},vacio[20]={},resp[20]={};
 
     inf ();
     menu:
@@ -18,30 +18,36 @@ int main (){
         añadir();
         tipo = obtenerTipo() - 1;
         material = obtenerMaterial() - 1;
+        indexFinal = comprobarVacio(tipo,material,nombres,vacio) - 1;
+        printf("INDEX FINAL 1 : %i\n",indexFinal);
         num = numObjAñadir(indexFinal);
-        //printf("ITERACIONES : %i\n",num);
-        for (int i = 0; i < num; i++)//for itera cuantas veces se le pida
+        if (num!=-1)
         {
-            index=comprobarVacio(tipo,material,nombres,vacio);//busca cadenas vacias
-            repetir:
-            //printf("index : %i\niteracion : %i\n",index,i);
-            strcpy(nombres[tipo][material][index],añadirNombre(tipo,material,index,nombres));
-            //printf("NOMBRES INDEX : %s\n",nombres[tipo][material][index]);
-            comp=comprobarReplicas(tipo,material,nombres,index);//mira los duplicados
-            if (comp==0)
+            //printf("ITERACIONES : %i\n",num);
+        for (int i = 0; i < num; i++)//for itera cuantas veces se le pida
             {
-                goto repetir;
-            } else if (comp==1) {
-                strcpy(nombres[tipo][material][index],vacio);
-                continue;
-                }
-                //goto añadir;
-            datos[tipo][material][index][0]=añadirDatos(0,index,nombres,tipo,material);
-            datos[tipo][material][index][1]=añadirDatos(1,index,nombres,tipo,material);
-            indexFinal=index;
-            //printf("\nINDEX FINAL : %i\n",indexFinal);
-            //añadir:
-            //printf("%s\n",nombres[index]); // imprimir nombre ingresado
+                index=comprobarVacio(tipo,material,nombres,vacio);//busca cadenas vacias
+                repetir:
+                //printf("index : %i\niteracion : %i\n",index,i);
+                strcpy(nombres[tipo][material][index],añadirNombre(tipo,material,index,nombres));
+                //printf("NOMBRES INDEX : %s\n",nombres[tipo][material][index]);
+                comp=comprobarReplicas(tipo,material,nombres,index);//mira los duplicados
+                if (comp==0)
+                {
+                    goto repetir;
+                } else if (comp==1) {
+                    strcpy(nombres[tipo][material][index],vacio);
+                    continue;
+                    }
+                    //goto añadir;
+                datos[tipo][material][index][0]=añadirDatos(0,index,nombres,tipo,material);
+                datos[tipo][material][index][1]=añadirDatos(1,index,nombres,tipo,material);
+                indexFinal = comprobarVacio(tipo,material,nombres,vacio) - 1;
+                printf("Index final : %i\n",indexFinal);
+                //printf("\nINDEX FINAL : %i\n",indexFinal);
+                //añadir:
+                //printf("%s\n",nombres[index]); // imprimir nombre ingresado
+            }
         }
         
         goto menu; //reinicio
@@ -76,6 +82,7 @@ int main (){
         material = obtenerMaterial() - 1;
         strcpy(buscar,nombreAEliminar(tipo,material,buscar,nombres));
         index = buscarIndex(tipo,material,buscar,nombres);
+        indexFinal = comprobarVacio(tipo,material,nombres,vacio) - 1;
         if (index!=-1)
         {
             strcpy(nombres[tipo][material][index],vaciarStr(nombres));
@@ -94,8 +101,6 @@ int main (){
             strcpy(nombres[tipo][material][indexFinal] , vaciarStr(nombres));
             for (int i = 0; i < 2; i++) {datos[tipo][material][indexFinal][i]=0;}
         }
-
-        indexFinal = index - 1;
 
         goto menu;
 
