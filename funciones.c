@@ -9,7 +9,7 @@ void eliminar(){
 }
 
 void añadir(){
-    printf("\t\t\tA%cADIR \n",165);
+    printf("\t\t\t\tA%cADIR \n",165);
 }
 
 void inf (){
@@ -18,8 +18,8 @@ void inf (){
 
 int menu (){
     int opc,insp;
-    printf("\n\t\t\t\tMENU \n\n1 Para ingresar nuevos objetos \n2 Para editar los objetos \n3 Para eliminar los objetos \n4 Para ver la lista de objetos \n5 Para salir \nOpcion : ");
-    insp = scanf("%d",&opc);
+    printf("\n\t\t\t\t\tMENU \n\n1 Para ingresar nuevos objetos \n2 Para editar los objetos \n3 Para eliminar los objetos \n4 Para ver la lista de objetos \n5 Para salir \nOpcion : ");
+    insp = scanf("%i",&opc);
     (insp!=1)? opc=validarNum(insp):(0);
     return opc;
 }
@@ -27,11 +27,13 @@ int menu (){
 int añadirMaterial (){
     int insp,num;
     printf("\n1 Para oro \n2 Para plata \nMaterial a ingresar : ");
+    while (getchar() != '\n');
     insp = scanf("%i",&num);
     (insp!=1)? num=validarNum(insp):(0);
     while (num<=0 || num>2)
         {
             printf("\nIngrese un numero v%clido : ",160);
+           while (getchar() != '\n');
             insp = scanf("%i",&num);
             (insp!=1)? num=validarNum(insp):(0);
         }
@@ -42,11 +44,13 @@ int añadirTipo (){
     int insp,num;
     printf("\t\t\t\tA%cADIR\n",165);
     printf("\n1 Para collares \n2 Para pulseras \n3 Para anillos \nTipo a ingresar : ");
+    while (getchar() != '\n');
     insp = scanf("%i",&num);
     (insp!=1)? num=validarNum(insp):(0);
     while (num<=0 || num>3)
         {
             printf("\nIngrese un numero v%clido : ",160);
+            while (getchar() != '\n');
             insp = scanf("%i",&num);
             (insp!=1)? num=validarNum(insp):(0);
         }
@@ -57,12 +61,14 @@ int añadirTipo (){
 int numObjAñadir (int indexFinal){
     int num=0,insp;
     printf("\n%cCuantos objetos desea ingresar? : ",168);
+    while (getchar() != '\n');
     insp = scanf("%i",&num);
     (insp!=1)? num=validarNum(insp):(0);
         //printf("%i\n",num);
         while (num<=0 || num>(9-indexFinal))
         {
-            printf("\nIngrese un numero v%clido : ",160);
+            printf("\nIngrese un numero v%clido (No puede haber m%cs de 10 artículos) : ",160,160,161);
+            while (getchar() != '\n');
             insp = scanf("%i",&num);
             (insp!=1)? num=validarNum(insp):(0);
         }
@@ -81,9 +87,9 @@ float validarNum (int insp){
 }
 
 char* añadirNombre(int tipo, int material, int index, char nombres[][2][10][20]){
-    printf("\nIngrese el nombre o c%cdigo del producto %i : ",162,index+1);
-    fflush(stdin);
-    scanf("%s",&nombres[tipo][material][index]);
+    printf("\nPRODUCTO %i\n\nIngrese el nombre o c%cdigo del producto %i : ",index+1,162,index+1);
+    while (getchar() != '\n');
+    scanf("%[^\n]",&nombres[tipo][material][index]);
     return nombres[tipo][material][index];
 }
 
@@ -96,6 +102,7 @@ float añadirDatos (int a,int index, char nombres[][2][10][20], int tipo, int ma
                 } else {
                     printf("\nIngrese el precio del producto %s : ",nombres[tipo][material][index]);
                 }    
+            while (getchar() != '\n');
             insp = scanf("%f",&valores);
             (insp!=1)? valores=validarNum(insp):(0);
         
@@ -104,7 +111,7 @@ float añadirDatos (int a,int index, char nombres[][2][10][20], int tipo, int ma
 
 int comprobarReplicas (int tipo, int material, char nombres[][2][10][20],int index){
     int c=2;
-    char x[10];
+    char x[2];
     if (index!=0)
     {
         for (int i = 0; i < index; i++)
@@ -113,7 +120,7 @@ int comprobarReplicas (int tipo, int material, char nombres[][2][10][20],int ind
             {
                 printf("\nEl producto que desa agregar ya existe \n\n%cDesea ingresar un nuevo nombre? (si/no) : ",168);
                 reinicio:
-                fflush(stdin);
+                while (getchar() != '\n');
                 scanf("%s",&x);
                 if (strcmp(x,"si")==0)
                 {
@@ -133,13 +140,12 @@ int comprobarReplicas (int tipo, int material, char nombres[][2][10][20],int ind
 }
     
 char* nombreAEditar (int tipo, int material,char nombres[][2][10][20],char a[]){
-    char buscar[20],x[10];
+    char buscar[20],x[2];
     inicio:
     printf("Ingrese el nombre del producto a editar : ");
-    fflush(stdin);
     //printf("BUSCAR : %s\n",buscar);
-    getch();
-    scanf("%s",&buscar);
+    while (getchar() != '\n');
+    scanf("%[^\n]",&buscar);
     int c=-1;
     for (int i = 0; i < 10; i++)
     {
@@ -151,7 +157,7 @@ char* nombreAEditar (int tipo, int material,char nombres[][2][10][20],char a[]){
             {
                 printf("\nEl nombre que busca no se encuentra en la base de datos \n\n%cDesea buscar otro nombre? (si/no) : ",168);
                 reinicio:
-                fflush(stdin);
+                while (getchar() != '\n');
                 scanf("%s",&x);
                 if (strcmp(x,"si")==0)
                 {
@@ -171,12 +177,14 @@ void editar(){
 
 int obtenerTipo(){
     int tipo, insp;
-    printf("1 Para collares \n2 Para pulseras \n3 Para anillos \nOpcion : ");
+    printf("\nElija el tipo de joyer%ca \n\n1 Para collares \n2 Para pulseras \n3 Para anillos \nOpcion : ",161);
+    while (getchar() != '\n');
     insp = scanf("%i",&tipo);
     (insp!=1)? tipo=validarNum(insp):(0);
     while (tipo<=0 || tipo>3)
     {
         printf("\n\nIngrese una opcion valida : ");
+        while (getchar() != '\n');
         insp = scanf("%i",&tipo);
         (insp!=1)? tipo=validarNum(insp):(0);
     }
@@ -185,12 +193,14 @@ int obtenerTipo(){
 
 int obtenerMaterial(){
     int material, insp;
-    printf("\n1 Para oro \n2 Para plata \n Opcion : ");
+    printf("\nElija el tipo de material\n\n1 Para oro \n2 Para plata \nOpcion : ");
+    while (getchar() != '\n');
     insp = scanf("%i",&material);
     (insp!=1)? material=validarNum(insp):(0);
     while (material<=0 || material>2)
     {
         printf("\n\nIngrese una opcion valida : ");
+        while (getchar() != '\n');
         insp = scanf("%i",&material);
         (insp!=1)? material=validarNum(insp):(0);
     }
@@ -242,8 +252,8 @@ char* editarNombre (int tipo, int material, int index, char nombres[][2][10][20]
     printf("\nNombre\tCantidad\tPrecio\n%s\t%f\t%f\n",nombres[tipo][material][index],datos[tipo][material][index][0],datos[tipo][material][index][1]);
     reinicio:
     printf("\nNuevo nombre : ");
-    fflush(stdin);
-    scanf("%s",&nuevoNombre);
+    while (getchar() != '\n');
+    scanf("%[^\n]",&nuevoNombre);
     if (strcmp(nuevoNombre,nombres[tipo][material][index])==0)
     {
         printf("\nEl nombre ingresado no puede ser el mismo que el anterior");
@@ -268,6 +278,7 @@ char* editarNombre (int tipo, int material, int index, char nombres[][2][10][20]
 float editarCantidad (){
     float num;
     printf("\nNueva cantidad : ");
+    while (getchar() != '\n');
     scanf("%f",&num);
     return num;
 }
@@ -275,6 +286,7 @@ float editarCantidad (){
 float editarPrecio (){
     float num;
     printf("\nNuevo precio : ");
+    while (getchar() != '\n');
     scanf("%f",&num);
     return num;
 }
@@ -285,7 +297,8 @@ char* nombreAEliminar (int tipo, int material, char buscar [],char nombres[][2][
     int index=-1;
     reinicio:
     printf ("\n%cQu%c producto desea eliminar? : ",168,130);
-    scanf("%s",&x);
+    while (getchar() != '\n');
+    scanf("%[^\n]",&x);
     for (int i = 0; i < 10; i++)
     {
        
@@ -295,7 +308,7 @@ char* nombreAEliminar (int tipo, int material, char buscar [],char nombres[][2][
         if (strcmp(x,nombres[tipo][material][i])==0){
             printf("\n%cEst%c seguro que desea eliminar el art%cculo? \"%s\" (si/no) : ",168,160,161,nombres[tipo][material][i]);
             preguntar:
-            fflush(stdin);
+            while (getchar() != '\n');
             scanf("%s",&resp);
             if(strcmp(resp,"si")==0){
                 index=i;
@@ -303,7 +316,7 @@ char* nombreAEliminar (int tipo, int material, char buscar [],char nombres[][2][
             } else if (strcmp(resp,"no")==0){
                 printf("\n%cDesea ingresar otro producto para eliminar? (si/no) : ",168);
                 preguntar2:
-                fflush(stdin);
+                while (getchar() != '\n');
                 scanf("%s",&resp);
                 if(strcmp(resp,"si")==0){
                     goto reinicio;
@@ -322,7 +335,7 @@ char* nombreAEliminar (int tipo, int material, char buscar [],char nombres[][2][
     if (index==-1){
         printf("\nEl producto no existe \n\n%cDesea ingresar otro producto para eliminar? (si/no) : ",168);
         pregunta3:
-        fflush(stdin);
+        while (getchar() != '\n');
         scanf("%s",&resp);
         if(strcmp(resp,"si")==0){
             goto reinicio;
@@ -347,22 +360,42 @@ float reordenarDatos(int tipo, int material, int i,float datos[][2][10][2],int j
 }
 
 void imprimirTabla(char nombres [][2][10][20], char vacio[], float datos [][2][10][2]){
-    printf("\t\t\t\tINVENTARIO\n");
+    printf("\t\t\t\t\t\tINVENTARIO\n\n");
         if (strcmp(nombres[0][0][0],vacio)==0 && strcmp(nombres[0][1][0],vacio)==0 && strcmp(nombres[1][0][0],vacio)==0 && strcmp(nombres[1][1][0],vacio)==0 && strcmp(nombres[2][0][0],vacio)==0 && strcmp(nombres[2][1][0],vacio)==0)
         {
             printf("\n\nEl inventario est%c vac%co",160,161);
         } else {
-            printf("PRODUCTO\t\tMATERIAL\t\tNOMBRE\t\tCANTIDAD\t\tPRECIO");
+            printf("PRODUCTO\t\tMATERIAL\t\tNOMBRE\t\t\tCANTIDAD\t\tPRECIO");
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 2; j++)
                 {
                     for (int k = 0; k < 10; k++)
                     {
-                        printf("\n%s\t\t",nombres[i][j][k]);
-                        for (int l = 0; l < 2; l++)
+                        if (strcmp(nombres[i][j][k],vacio)!=0)
                         {
-                            printf("%f\t\t",datos[i][j][k][l]);
+                            if (i==0)
+                            {
+                                printf("\nCollar\t\t\t");
+                            } else if(i==1){
+                                printf("\nPulsera\t\t\t");
+                            } else {
+                                printf("\nAnillo\t\t\t");
+                            }
+                            if (j==0)
+                            {
+                                printf("Oro\t\t\t");
+                            } else {
+                                printf("Plata\t\t\t");
+                            }
+                            printf("%s\t\t\t",nombres[i][j][k]);
+                            for (int l = 0; l < 2; l++)
+                            {if (l==1)
+                            {
+                                printf("$");
+                            }
+                                printf("%.2f\t\t\t",datos[i][j][k][l]);
+                            }
                         }
                     }
                 }
@@ -398,12 +431,12 @@ char* vaciarStr (char str[][2][10][20]){
 char* salir (char resp[10]){
         char  x[10];
         printf("%cEst%c seguro de salir? (si/no) : ",168,160);
-        fflush(stdin);
+        while (getchar() != '\n');
         scanf("%s",&x);
         while (strcmp(x,"si")!=0 && strcmp(x,"no")!=0)
         {
             printf("\nIngrese una respuesta v%clida",160);
-            fflush(stdin);
+            while (getchar() != '\n');
             scanf("%s",&x);
         }
         //printf("%s",x);
