@@ -19,7 +19,7 @@ int main (){
         tipo = obtenerTipo() - 1;
         material = obtenerMaterial() - 1;
         indexFinal = comprobarVacio(tipo,material,nombres,vacio) - 1;
-        printf("INDEX FINAL 1 : %i\n",indexFinal);
+        //printf("INDEX FINAL 1 : %i\n",indexFinal);
         num = numObjAñadir(indexFinal);
         if (num!=-1)
         {
@@ -66,9 +66,17 @@ int main (){
         //printf("%i\n",index);
             if (index!=-1)//si el producto a editar existe:
             {
-                strcpy(nombres[tipo][material][index],editarNombre(tipo,material,index,nombres,datos));
-                datos[tipo][material][index][0]=editarCantidad();
-                datos[tipo][material][index][1]=editarPrecio();
+                tablaEditar(tipo,material,index,nombres,datos);
+                opc = opcEditar();
+                if (opc==1)
+                {
+                    strcpy(nombres[tipo][material][index],editarNombre(tipo,material,index,nombres,datos));
+
+                } else if(opc==2){
+                    datos[tipo][material][index][0]=editarCantidad();
+                } else {
+                    datos[tipo][material][index][1]=editarPrecio();
+                }
             }
         goto menu;
 

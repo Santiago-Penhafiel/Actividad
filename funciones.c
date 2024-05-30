@@ -74,7 +74,7 @@ int numObjAñadir (int indexFinal){
         }
         if (num>=(10-indexFinal))
         {
-            printf("\nINo puede haber m%cs de 10 art%cculos por categor%ca",160,161,161);
+            printf("\nNo puede haber m%cs de 10 art%cculos por categor%ca\n",160,161,161);
             num = -1;
         }
     return num;
@@ -99,7 +99,7 @@ char* añadirNombre(int tipo, int material, int index, char nombres[][2][11][20]
 }
 
 float añadirDatos (int a,int index, char nombres[][2][11][20], int tipo, int material){
-    int insp;
+    int insp,entero;
     float valores;
             if (a==0)
                 {
@@ -110,7 +110,37 @@ float añadirDatos (int a,int index, char nombres[][2][11][20], int tipo, int ma
             while (getchar() != '\n');
             insp = scanf("%f",&valores);
             (insp!=1)? valores=validarNum(insp):(0);
-        
+            entero = (int) valores;
+            if (a==0)
+            {
+                while (valores<=0 || (valores-entero)!=0)
+                {
+                    while (valores<=0)
+                    {
+                        printf("\nLas cantidades no pueden ser negativas, ingrese nuevamente : ");
+                        while (getchar() != '\n');
+                        insp = scanf("%f",&valores);
+                        (insp!=1)? valores=validarNum(insp):(0);
+
+                    }
+                    while ((valores-entero)!=0)
+                    {
+                        printf("\nLas cantidades deben ser enteras, ingrese nuevamente : ");
+                        while (getchar() != '\n');
+                        insp = scanf("%f",&valores);
+                        (insp!=1)? valores=validarNum(insp):(0);
+                        entero = (int) valores;
+                    }
+                }                
+            } else {
+                while (valores<=0)
+                {
+                    printf("\nIngrese un valor v%clido : ",160);
+                    while (getchar() != '\n');
+                    insp = scanf("%f",&valores);
+                    (insp!=1)? valores=validarNum(insp):(0);
+                }
+            }
     return valores;
 }
 
@@ -252,9 +282,26 @@ int buscarIndex(int tipo, int material, char buscar[],char nombres[][2][11][20])
     }
 }*/
 
+void tablaEditar (int tipo, int material, int index, char nombres[][2][11][20], float datos[][2][10][2]){
+    printf("\nNombre\t\tCantidad\t\tPrecio\n%s\t\t%.0f\t\t\t$%.2f\n",nombres[tipo][material][index],datos[tipo][material][index][0],datos[tipo][material][index][1]);
+}
+
+int opcEditar(){
+    int a, insp;
+    printf("\nEscoja el valor a editar \n1 Para el nombre \n2 Para la cantidad \n3 Para el precio");
+    printf("\n%cQu%c valor desea editar? : ",168,130);
+    insp = scanf("%i",&a);
+    (insp!=1)? a=validarNum(insp):(0);
+    while (a!=1 && a!=2 && a!=3)
+    {
+        printf("\nIngrese una opci%c v%clida : ",162,160);
+        insp = scanf("%i",&a);
+        (insp!=1)? a=validarNum(insp):(0);
+    }
+}
+
 char* editarNombre (int tipo, int material, int index, char nombres[][2][11][20],float datos [][2][10][2]){
     char nuevoNombre[20];
-    printf("\nNombre\tCantidad\tPrecio\n%s\t%f\t%f\n",nombres[tipo][material][index],datos[tipo][material][index][0],datos[tipo][material][index][1]);
     reinicio:
     printf("\nNuevo nombre : ");
     while (getchar() != '\n');
@@ -282,29 +329,47 @@ char* editarNombre (int tipo, int material, int index, char nombres[][2][11][20]
 
 float editarCantidad (){
     float num;
+    int insp,entero;
     printf("\nNueva cantidad : ");
     while (getchar() != '\n');
-    scanf("%f",&num);
-    while (num<=0)
-    {
-        printf("Ingrese una cantidad v%clida : ",160);
-        while (getchar() != '\n');
-        scanf("%f",&num);
-    }
+    insp = scanf("%f",&num);
+    (insp!=1)? num=validarNum(insp):(0);
+    entero = (int) num;
+        while (num<=0 || (num-entero)!=0){
+            while (num<=0)
+            {
+                printf("\nLas cantidades no pueden ser negativas, ingrese nuevamente : ");
+                while (getchar() != '\n');
+                insp = scanf("%f",&num);
+                (insp!=1)? num=validarNum(insp):(0);
+
+            }
+            while ((num-entero)!=0)
+            {
+                printf("\nLas cantidades deben ser enteras, ingrese nuevamente : ");
+                while (getchar() != '\n');
+                insp = scanf("%f",&num);
+                (insp!=1)? num=validarNum(insp):(0);
+                entero = (int) num;
+            }
+        }     
     
     return num;
 }
 
 float editarPrecio (){
     float num;
+    int insp;
     printf("\nNuevo precio : ");
     while (getchar() != '\n');
-    scanf("%f",&num);
+    insp = scanf("%f",&num);
+    (insp!=1)? num=validarNum(insp):(0);
     while (num<=0)
     {
         printf("Ingrese un precio v%clido : ",160);
         while (getchar() != '\n');
-        scanf("%f",&num);
+        insp = scanf("%f",&num);
+        (insp!=1)? num=validarNum(insp):(0);
     }
     return num;
 }
@@ -408,11 +473,15 @@ void imprimirTabla(char nombres [][2][11][20], char vacio[], float datos [][2][1
                             }
                             printf("%s\t\t\t",nombres[i][j][k]);
                             for (int l = 0; l < 2; l++)
-                            {if (l==1)
                             {
-                                printf("$");
-                            }
-                                printf("%.2f\t\t\t",datos[i][j][k][l]);
+
+                                if (l==1)
+                                {
+                                    printf("$");
+                                    printf("%.2f\t\t\t",datos[i][j][k][l]);
+                                } else {
+                                    printf("%.0f\t\t\t",datos[i][j][k][l]);
+                                }
                             }
                         }
                     }

@@ -10,6 +10,8 @@ int añadirTipo ();
 int añadirMaterial ();
 char* añadirNombre(int tipo, int material, int index, char nombres[][2][11][20]);
 float añadirDatos (int a,int index, char nombres[][2][11][20], int tipo, int material);
+void tablaEditar (int tipo, int material, int index, char nombres[][2][11][20], float datos[][2][10][2]);
+int opcEditar();
 char* nombreAEditar (int tipo, int material,char nombres[][2][11][20],char a[]);
 int obtenerTipo();
 int obtenerMaterial();
