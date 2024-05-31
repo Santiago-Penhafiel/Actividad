@@ -174,17 +174,19 @@ int comprobarReplicas (int tipo, int material, char nombres[][2][11][20],int ind
     return c;
 }
     
-char* nombreAEditar (int tipo, int material,char nombres[][2][11][20],char a[]){
-    char buscar[20],x[2];
+char* nombreAEditar (int tipo, int material,char nombres[][2][11][20],char buscar[20]){
+    char nombre[20],x[2],a[20];
     inicio:
     printf("Ingrese el nombre del producto a editar : ");
     //printf("BUSCAR : %s\n",buscar);
     while (getchar() != '\n');
-    scanf("%[^\n]",&buscar);
+    scanf("%s",&nombre);
+    strcpy(a,nombre);
+    //printf("BUSCAR : %s\n",nombre);
     int c=-1;
     for (int i = 0; i < 10; i++)
     {
-        if(strcmp(nombres[tipo][material][i],buscar)==0){
+        if(strcmp(nombres[tipo][material][i],nombre)==0){
         c=0;
         break;}
     }
@@ -192,7 +194,7 @@ char* nombreAEditar (int tipo, int material,char nombres[][2][11][20],char a[]){
             {
                 printf("\nEl nombre que busca no se encuentra en la base de datos \n\n%cDesea buscar otro nombre? (si/no) : ",168);
                 reinicio:
-                while (getchar() != '\n');
+                fflush(stdin);
                 scanf("%s",&x);
                 if (strcmp(x,"si")==0)
                 {
@@ -202,8 +204,8 @@ char* nombreAEditar (int tipo, int material,char nombres[][2][11][20],char a[]){
                     goto reinicio;
                 }
             }
-    strcpy(a,buscar);
-    return a;
+    strcpy(buscar,a);
+    return buscar;
 }
 
 void editar(){
@@ -244,6 +246,7 @@ int obtenerMaterial(){
 
 int buscarIndex(int tipo, int material, char buscar[],char nombres[][2][11][20]){
     int index=-1;
+    //printf("BUSCAR : %s\n",buscar);
     for (int i = 0; i < 10; i++)
     {
         if (strcmp(buscar,nombres[tipo][material][i])==0)

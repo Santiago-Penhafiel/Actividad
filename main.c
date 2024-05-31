@@ -59,11 +59,11 @@ int main (){
         tipo = obtenerTipo() - 1;
         material = obtenerMaterial() - 1;
         //printf("TIPO : %i MATERIAL : %i\n",tipo,material);
-        strcpy(buscar,nombreAEditar(tipo,material,nombres,resp));
+        strcpy(buscar,nombreAEditar(tipo,material,nombres,buscar));
         //printf("BUSCAR : %s\n",buscar);
         index = buscarIndex(tipo,material,buscar,nombres);
         //index=indexEditar(nombres);
-        printf("%i\n",index);
+        //printf("%i\n",index);
             if (index!=-1)//si el producto a editar existe:
             {
                 tablaEditar(tipo,material,index,nombres,datos);
