@@ -126,7 +126,7 @@ int main (){
         {
             goto menu;
         } else if (strcmp(resp,"si")!=0){
-            printf("\nIngrese una respuesta v%clida",160);
+            printf("\nIngrese una respuesta v%clida : ",160);
             goto case5;
         }
 
