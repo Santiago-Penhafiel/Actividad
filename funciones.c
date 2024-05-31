@@ -180,7 +180,7 @@ char* nombreAEditar (int tipo, int material,char nombres[][2][11][20],char busca
     printf("Ingrese el nombre del producto a editar : ");
     //printf("BUSCAR : %s\n",buscar);
     while (getchar() != '\n');
-    scanf("%s",&nombre);
+    scanf("%[^\n]",&nombre);
     strcpy(a,nombre);
     //printf("BUSCAR : %s\n",nombre);
     int c=-1;
