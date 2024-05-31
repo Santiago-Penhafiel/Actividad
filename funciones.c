@@ -255,33 +255,6 @@ int buscarIndex(int tipo, int material, char buscar[],char nombres[][2][11][20])
     return index;
 }
 
-/*int buscarIndex (int x, char buscar[], char nombres[][2][10][20]){
-    int a,b,c;
-    for (int i = 0; i < 3; i++)
-    {
-        for (int j = 0; j < 2; j++)
-        {
-            for (int k = 0; k < 10; k++)
-            {
-                if(strcmp(nombres[i][j][k],buscar)==0){
-                a=i;//tipo
-                b=j;//material
-                c=k;//index
-                break;}
-            }
-            
-        }
-    }
-    if (x==0)
-    {
-        return a;
-    } else if (x==1) {
-        return b;
-    } else {
-        return c;
-    }
-}*/
-
 void tablaEditar (int tipo, int material, int index, char nombres[][2][11][20], float datos[][2][10][2]){
     printf("\nNombre\t\tCantidad\t\tPrecio\n%s\t\t%.0f\t\t\t$%.2f\n",nombres[tipo][material][index],datos[tipo][material][index][0],datos[tipo][material][index][1]);
 }

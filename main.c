@@ -43,7 +43,7 @@ int main (){
                 datos[tipo][material][index][0]=añadirDatos(0,index,nombres,tipo,material);
                 datos[tipo][material][index][1]=añadirDatos(1,index,nombres,tipo,material);
                 indexFinal = comprobarVacio(tipo,material,nombres,vacio) - 1;
-                printf("Index final : %i\n",indexFinal);
+                //printf("Index final : %i\n",indexFinal);
                 //printf("\nINDEX FINAL : %i\n",indexFinal);
                 //añadir:
                 //printf("%s\n",nombres[index]); // imprimir nombre ingresado
@@ -63,7 +63,7 @@ int main (){
         //printf("BUSCAR : %s\n",buscar);
         index = buscarIndex(tipo,material,buscar,nombres);
         //index=indexEditar(nombres);
-        //printf("%i\n",index);
+        printf("%i\n",index);
             if (index!=-1)//si el producto a editar existe:
             {
                 tablaEditar(tipo,material,index,nombres,datos);
