@@ -120,10 +120,14 @@ int main (){
         break;
 
     case 5:
+        case5:
         strcpy(resp,salir(resp));
         if (strcmp(resp,"no")==0)
         {
             goto menu;
+        } else if (strcmp(resp,"si")!=0){
+            printf("\nIngrese una respuesta v%clida",160);
+            goto case5;
         }
 
         break;
