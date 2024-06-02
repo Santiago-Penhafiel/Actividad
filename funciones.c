@@ -273,6 +273,7 @@ int opcEditar(){
         insp = scanf("%i",&a);
         (insp!=1)? a=validarNum(insp):(0);
     }
+    return a;
 }
 
 char* editarNombre (int tipo, int material, int index, char nombres[][2][11][20],float datos [][2][10][2]){
@@ -419,7 +420,8 @@ float reordenarDatos(int tipo, int material, int i,float datos[][2][10][2],int j
 
 void imprimirTabla(char nombres [][2][11][20], char vacio[], float datos [][2][10][2]){
     printf("\t\t\t\t\t\tINVENTARIO\n\n");
-        if (strcmp(nombres[0][0][0],vacio)==0 && strcmp(nombres[0][1][0],vacio)==0 && strcmp(nombres[1][0][0],vacio)==0 && strcmp(nombres[1][1][0],vacio)==0 && strcmp(nombres[2][0][0],vacio)==0 && strcmp(nombres[2][1][0],vacio)==0)
+        if (strcmp(nombres[0][0][0],vacio)==0 && strcmp(nombres[0][1][0],vacio)==0 && strcmp(nombres[1][0][0],vacio)==0 
+        && strcmp(nombres[1][1][0],vacio)==0 && strcmp(nombres[2][0][0],vacio)==0 && strcmp(nombres[2][1][0],vacio)==0)
         {
             printf("\n\nEl inventario est%c vac%co",160,161);
         } else {
