@@ -287,7 +287,7 @@ char* editarNombre (int tipo, int material, int index, char nombres[][2][11][20]
         printf("\nEl nombre ingresado no puede ser el mismo que el anterior");
         goto reinicio;
     } else {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 10; i++)
         {
             if (strcmp(nombres[tipo][material][i],nuevoNombre)==0)
             {
@@ -351,7 +351,7 @@ float editarPrecio (){
 }
 
 
-char* nombreAEliminar (int tipo, int material, char buscar [],char nombres[][2][11][20]){
+char* nombreAEliminar (int tipo, int material, char buscar [],char nombres[][2][11][20],char vacio[]){
     char resp[20],x[20];
     int index=-1;
     reinicio:
@@ -403,9 +403,14 @@ char* nombreAEliminar (int tipo, int material, char buscar [],char nombres[][2][
             goto pregunta3;
         }
     }
-    end:
     strcpy(buscar,x);
     return buscar;
+    if (1==0)
+    {
+        end:
+        return vacio;
+    }
+    
 }
 
 char* reordenarNombre (int tipo, int material, int i,char nombres[][2][11][20]){

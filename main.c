@@ -87,24 +87,28 @@ int main (){
         int inicio;
         tipo = obtenerTipo() - 1;
         material = obtenerMaterial() - 1;
-        strcpy(buscar,nombreAEliminar(tipo,material,buscar,nombres));
+        strcpy(buscar,nombreAEliminar(tipo,material,buscar,nombres,vacio));
+        //printf("BUSCAR : %s\n",buscar);
         index = buscarIndex(tipo,material,buscar,nombres);
         indexFinal = comprobarVacio(tipo,material,nombres,vacio) - 1;
-        if (index!=-1)
-        {
-            strcpy(nombres[tipo][material][index],vaciarStr(nombres));
-            for (int i = 0; i < 2; i++) {datos[tipo][material][index][i]=0;}
-        }
-        inicio = comprobarVacio(tipo,material,nombres,vacio);
+        //printf("INDEX : %i\nINDEX FINAL : %i\n",index,indexFinal);
+        
+        if (index<=indexFinal)
+            {
+                strcpy(nombres[tipo][material][index],vacio);
+                for (int i = 0; i < 2; i++) {datos[tipo][material][index][i]=0;}
+            }
+       inicio = comprobarVacio(tipo,material,nombres,vacio) ;
         //printf("INICIO : %i\nFINAL : %i\n",inicio,indexFinal);
-        for (int i = inicio; i < indexFinal; i++)
-        {
-            //printf("VUELTA %i\n",i+1);
-            strcpy(nombres[tipo][material][i],reordenarNombre(tipo,material,i,nombres));
-            //printf("NOMBRE%i : %s\n",i,nombres[i]);
-            for (int j = 0; j < 2; j++) {datos[tipo][material][i][j] = reordenarDatos(tipo,material,i,datos,j);}
-        }
-        if (inicio!=indexFinal){
+        if (inicio<indexFinal){
+            
+            for (int i = inicio; i < indexFinal; i++)
+            {
+                //printf("VUELTA %i\n",i+1);
+                strcpy(nombres[tipo][material][i],reordenarNombre(tipo,material,i,nombres));
+                //printf("NOMBRE%i : %s\n",i,nombres[i]);
+                for (int j = 0; j < 2; j++) {datos[tipo][material][i][j] = reordenarDatos(tipo,material,i,datos,j);}
+            }
             strcpy(nombres[tipo][material][indexFinal] , vaciarStr(nombres));
             for (int i = 0; i < 2; i++) {datos[tipo][material][indexFinal][i]=0;}
         }

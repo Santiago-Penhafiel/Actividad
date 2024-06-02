@@ -21,7 +21,7 @@ float editarCantidad ();
 float editarPrecio ();
 int comprobarReplicas (int tipo, int material, char nombres[][2][11][20],int index);
 float validarNum (int insp);
-char* nombreAEliminar (int tipo, int material, char buscar [],char nombres[][2][11][20]);
+char* nombreAEliminar (int tipo, int material, char buscar [],char nombres[][2][11][20],char vacio[]);
 char* vaciarStr (char str[][2][11][20]);
 char* reordenarNombre (int tipo, int material, int i,char nombres[][2][11][20]);
 void imprimirTabla(char nombres [][2][11][20], char vacio[], float datos [][2][10][2]);
